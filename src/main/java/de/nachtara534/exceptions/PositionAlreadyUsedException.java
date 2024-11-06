@@ -1,8 +1,13 @@
 package de.nachtara534.exceptions;
 
-import lombok.AllArgsConstructor;
+import lombok.ToString;
 
-@AllArgsConstructor
+@ToString
 public class PositionAlreadyUsedException extends Exception {
-    String meassage;
+    public PositionAlreadyUsedException() {
+    }
+
+    public PositionAlreadyUsedException(String message) {
+        super(message);
+    }
 }

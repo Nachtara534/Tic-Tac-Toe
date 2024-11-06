@@ -49,7 +49,7 @@ public class Game {
             }
         }
 
-        out.println(turn + " hat nach " + turnCounter + " Gewonnen");
+        out.println(turn + " hat nach " + turnCounter + " zügen gewonnen!");
 
     }
 
