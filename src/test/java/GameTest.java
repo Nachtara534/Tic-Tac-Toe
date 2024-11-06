@@ -28,6 +28,20 @@ public class GameTest {
     }
 
     @Test
+    void test_printFieldWithToken() {
+
+        Token[][] board = new Token[3][3];
+
+
+        board[0][0] = Token.RED;
+        board[1][0] = Token.BLUE;
+
+        Game game = new Game();
+
+        game.printField(board);
+    }
+
+    @Test
     void test_splitInput() {
         Game game = new Game();
         String input1 = "A0";
@@ -54,5 +68,75 @@ public class GameTest {
         assertThat(board[0][0]).isEqualTo(Token.RED);
     }
 
+    @Test
+    void test_horizontalWinConditionFirstRow() {
+        Token[][] board = new Token[3][3];
+        Game game = new Game();
+//      board[x][y]
+        board[0][0] = Token.RED;
+        board[1][0] = Token.RED;
+        board[2][0] = Token.RED;
 
+        assertThat(game.checkWinHorizontal(board, Token.RED)).isTrue();
+    }
+
+    @Test
+    void test_horizontalWinConditionLastRow() {
+        Token[][] board = new Token[3][3];
+        Game game = new Game();
+//      board[x][y]
+        board[0][2] = Token.BLUE;
+        board[1][2] = Token.BLUE;
+        board[2][2] = Token.BLUE;
+
+        assertThat(game.checkWinHorizontal(board, Token.BLUE)).isTrue();
+    }
+
+    @Test
+    void test_verticalWinConditionFirstColumn() {
+        Token[][] board = new Token[3][3];
+        Game game = new Game();
+//      board[x][y]
+        board[0][0] = Token.RED;
+        board[0][1] = Token.RED;
+        board[0][2] = Token.RED;
+
+        assertThat(game.checkWinVertical(board, Token.RED)).isTrue();
+    }
+
+    @Test
+    void test_verticalWinConditionLastColumn() {
+        Token[][] board = new Token[3][3];
+        Game game = new Game();
+//      board[x][y]
+        board[2][0] = Token.BLUE;
+        board[2][1] = Token.BLUE;
+        board[2][2] = Token.BLUE;
+
+        assertThat(game.checkWinVertical(board, Token.BLUE)).isTrue();
+    }
+
+    @Test
+    void test_diagonalWinConditionLeftToRight() {
+        Token[][] board = new Token[3][3];
+        Game game = new Game();
+//      board[x][y]
+        board[0][0] = Token.RED;
+        board[1][1] = Token.RED;
+        board[2][2] = Token.RED;
+
+        assertThat(game.checkWinDiagonal(board, Token.RED)).isTrue();
+    }
+
+    @Test
+    void test_diagonalWinConditionRightToLeft() {
+        Token[][] board = new Token[3][3];
+        Game game = new Game();
+//      board[x][y]
+        board[0][2] = Token.RED;
+        board[1][1] = Token.RED;
+        board[2][0] = Token.RED;
+
+        assertThat(game.checkWinDiagonal(board, Token.RED)).isTrue();
+    }
 }

@@ -58,6 +58,30 @@ public class Game {
 
     }
 
+    public boolean checkWinHorizontal(final Token[][] board, Token playerColor) {
+        for (int y = 0; y < board.length; y++) {
+            if (board[0][y] == playerColor && board[1][y] == playerColor && board[2][y] == playerColor) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkWinVertical(final Token[][] board, Token playerColor) {
+        for (int x = 0; x < board.length; x++) {
+            if (board[x][0] == playerColor && board[x][1] == playerColor && board[x][2] == playerColor) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkWinDiagonal(final Token[][] board, Token playerColor) {
+        if (board[0][0] == playerColor && board[1][1] == playerColor && board[2][2] == playerColor) {
+            return true;
+        }
+        return board[0][2] == playerColor && board[1][1] == playerColor && board[2][0] == playerColor;
+    }
 
     //Prints the Field with Stones
     public void printField(Token[][] gameBoard) {
