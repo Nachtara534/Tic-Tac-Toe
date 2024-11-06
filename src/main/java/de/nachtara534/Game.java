@@ -96,13 +96,7 @@ public class Game {
     }
 
     private boolean winConditions(Token[][] board, Token turn) {
-        if (checkWinDiagonal(board, turn)) {
-            return true;
-        }
-        if (checkWinHorizontal(board, turn)) {
-            return true;
-        }
-        return checkWinVertical(board, turn);
+        return checkWinVertical(board, turn) || checkWinDiagonal(board, turn) || checkWinHorizontal(board, turn);
     }
 
     public boolean checkWinHorizontal(final Token[][] board, Token playerColor) {
@@ -130,12 +124,12 @@ public class Game {
         return board[0][2] == playerColor && board[1][1] == playerColor && board[2][0] == playerColor;
     }
 
-    public TokenPosition ai(Token[][] board, int depth, int maxDepth) {
-        if(depth == maxDepth) {
-            return null;
-        }
-        return null;
-    }
+//    public TokenPosition ai(Token[][] board, int depth, int maxDepth) {
+//        if(depth == maxDepth) {
+//            return null;
+//        }
+//        return null;
+//    }
 
     //Prints the Field with Stones
     public void printField(Token[][] gameBoard) {
