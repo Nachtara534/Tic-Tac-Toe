@@ -17,6 +17,42 @@ public class Game {
     public String ansi_RED = "\u001B[31m";
 
 
+    public void play() {
+        boolean win = false;
+
+        Token[][] board = initBoard();
+
+        Token turn = Token.RED;
+        int turnCounter = 0;
+        while (!win) {
+            turnCounter++;
+            out.println(turn + " ist am Zug");
+
+            boolean valid = false;
+            while (!valid) {
+                printField(board);
+                try {
+                    TokenPosition positionToPlace = splitInput(userInput());
+                    placeToken(board, positionToPlace, turn);
+                    valid = true;
+                } catch (PositionAlreadyUsedException e) {
+                    out.println(e.getMessage());
+                }
+            }
+
+            if (turnCounter >= 5) {
+                win = winConditions(board, turn);
+            }
+
+            if (!win) {
+                turn = turn.change();
+            }
+        }
+
+        out.println(turn + " hat nach " + turnCounter + " Gewonnen");
+
+    }
+
     public Token[][] initBoard() {
         Token[][] board = new Token[3][3];
 
@@ -32,6 +68,7 @@ public class Game {
         boolean valid = false;
         String input = "";
         while (!valid) {
+            out.println("Wähle eine Position");
             input = new Scanner(System.in).next();
             try {
                 if (validator.inputValidation(input)) {
@@ -45,7 +82,7 @@ public class Game {
     }
 
     public TokenPosition splitInput(String input) {
-        int y = (input.charAt(0) - 65);
+        int y = (input.toUpperCase().charAt(0) - 65);
         int x = Integer.parseInt(String.valueOf(input.charAt(1)));
         return new TokenPosition(x, y);
     }
@@ -53,9 +90,19 @@ public class Game {
     public void placeToken(Token[][] board, final TokenPosition position, final Token token) throws PositionAlreadyUsedException {
 
         if (validator.positionValidation(board, position)) {
-            board[position.y][position.x] = token;
+            board[position.x][position.y] = token;
         }
 
+    }
+
+    private boolean winConditions(Token[][] board, Token turn) {
+        if (checkWinDiagonal(board, turn)) {
+            return true;
+        }
+        if (checkWinHorizontal(board, turn)) {
+            return true;
+        }
+        return checkWinVertical(board, turn);
     }
 
     public boolean checkWinHorizontal(final Token[][] board, Token playerColor) {

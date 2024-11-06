@@ -139,4 +139,22 @@ public class GameTest {
 
         assertThat(game.checkWinDiagonal(board, Token.RED)).isTrue();
     }
+
+    @Test
+    void test_TokenPlacementAfterSplit() throws PositionAlreadyUsedException {
+        Game game = new Game();
+        Token[][] board = new Token[3][3];
+        String input1 = "A0";
+        String input2 = "C2";
+        String input3 = "C1";
+
+        game.placeToken(board, game.splitInput(input1), Token.RED);
+        game.placeToken(board, game.splitInput(input2), Token.BLUE);
+        game.placeToken(board, game.splitInput(input3), Token.BLUE);
+
+        assertThat(board[0][0]).isEqualTo(Token.RED);
+        assertThat(board[2][2]).isEqualTo(Token.BLUE);
+        assertThat(board[1][2]).isEqualTo(Token.BLUE);
+
+    }
 }
