@@ -115,8 +115,8 @@ public class Game {
     }
 
     public boolean checkWinVertical(final Token[][] board, Token playerColor) {
-        for (int x = 0; x < board.length; x++) {
-            if (board[x][0] == playerColor && board[x][1] == playerColor && board[x][2] == playerColor) {
+        for (Token[] tokens : board) {
+            if (tokens[0] == playerColor && tokens[1] == playerColor && tokens[2] == playerColor) {
                 return true;
             }
         }
@@ -128,6 +128,13 @@ public class Game {
             return true;
         }
         return board[0][2] == playerColor && board[1][1] == playerColor && board[2][0] == playerColor;
+    }
+
+    public TokenPosition ai(Token[][] board, int depth, int maxDepth) {
+        if(depth == maxDepth) {
+            return null;
+        }
+        return null;
     }
 
     //Prints the Field with Stones
